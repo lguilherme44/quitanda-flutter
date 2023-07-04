@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Quitanda Goya',
       theme: ThemeData(
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.grey,
+          ),
           primarySwatch: Colors.green,
           useMaterial3: true,
           scaffoldBackgroundColor: Colors.white.withAlpha(190)),

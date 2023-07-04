@@ -52,6 +52,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           isObscure ? Icons.visibility : Icons.visibility_off))
                   : null,
               labelText: widget.label,
+              labelStyle: const TextStyle(fontSize: 15),
               floatingLabelStyle: const TextStyle(color: Colors.green),
               isDense: true,
               border: OutlineInputBorder(

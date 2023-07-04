@@ -18,17 +18,25 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       // App bar
-
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {},
+              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            );
+          },
+        ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: CustomColors.customSwatchColor,
         centerTitle: true,
         title:
             Text.rich(TextSpan(style: const TextStyle(fontSize: 30), children: [
           const TextSpan(
               text: 'Quitanda',
               style:
-                  TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           TextSpan(
               text: 'Goya',
               style: TextStyle(color: CustomColors.customConstrastColors))
@@ -68,11 +76,6 @@ class _HomeTabState extends State<HomeTab> {
                 isDense: true,
                 hintText: 'Pesquisar',
                 hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 14),
-                // prefix: Icon(
-                //   Icons.search,
-                //   color: CustomColors.customConstrastColors,
-                //   size: 14,
-                // ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(60),
                     borderSide:

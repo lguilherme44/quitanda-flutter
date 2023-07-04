@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/models/item_model.dart';
 import 'package:goya/src/pages/common_widgets/quantity_widget.dart';
-import 'package:goya/src/services/utils_services.dart';
+import 'package:goya/src/utils/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.item});
