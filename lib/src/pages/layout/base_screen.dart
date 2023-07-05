@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -40,9 +41,9 @@ class _BaseScreenState extends State<BaseScreen> {
             });
           },
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.green,
+          backgroundColor: CustomColors.customSwatchColor,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black.withAlpha(100),
+          unselectedItemColor: Colors.black.withAlpha(200),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
