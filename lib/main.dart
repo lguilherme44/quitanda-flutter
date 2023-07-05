@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: FToastBuilder(),
       darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         textTheme: GoogleFonts.robotoTextTheme(),
         textSelectionTheme: const TextSelectionThemeData(
