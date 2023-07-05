@@ -1,13 +1,12 @@
-import '../../data/cache/local_storage.dart';
 import '../../data/http/http.dart';
 
 class AuthorizeHttpClientDecorator implements HttpClient {
+  final String apiUrl;
   final HttpClient httpClient;
-  final CacheLocalStorage localStorage;
 
   AuthorizeHttpClientDecorator({
+    required this.apiUrl,
     required this.httpClient,
-    required this.localStorage,
   });
 
   @override
@@ -25,7 +24,7 @@ class AuthorizeHttpClientDecorator implements HttpClient {
       }
 
       return await httpClient.request(
-        url: url,
+        url: '$apiUrl$url',
         method: method,
         body: body,
         headers: authorizedHeaders,
@@ -34,7 +33,6 @@ class AuthorizeHttpClientDecorator implements HttpClient {
       if (error is HttpError && error != HttpError.forbidden) {
         rethrow;
       } else {
-        await localStorage.clear();
         throw HttpError.forbidden;
       }
     }

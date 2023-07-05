@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
-
+import 'package:http/http.dart';
 import '../../data/http/http.dart';
 
 class HttpAdapter implements HttpClient {
-  final http.Client client;
+  final Client client;
 
   HttpAdapter(this.client);
 
@@ -15,26 +14,50 @@ class HttpAdapter implements HttpClient {
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
-    final requestHeaders = headers ??
-        {
-          'content-type': 'application/json',
-          'accept': 'application/json',
-        };
+    final uri = Uri.parse(url);
+    final defaultHeaders = headers?.cast<String, String>() ?? {}
+      ..addAll(
+          {'content-type': 'application/json', 'accept': 'application/json'});
+    final jsonBody = body != null ? jsonEncode(body) : null;
+    late Response response;
 
-    final requestBody = body != null ? jsonEncode(body) : null;
+    try {
+      if (method == 'post') {
+        response =
+            await client.post(uri, headers: defaultHeaders, body: jsonBody);
+      } else if (method == 'get') {
+        response = await client.get(uri, headers: defaultHeaders);
+      } else if (method == 'put') {
+        response =
+            await client.put(uri, headers: defaultHeaders, body: jsonBody);
+      } else if (method == 'delete') {
+        response = await client.delete(uri, headers: defaultHeaders);
+      } else {
+        throw HttpError.invalidMethod;
+      }
+    } catch (error) {
+      throw HttpError.serverError;
+    }
 
-    final response = await client.post(
-      Uri.parse(url),
-      headers: requestHeaders,
-      body: requestBody,
-    );
+    return _handleResponse(response);
+  }
 
-    final dynamic responseBody = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      return responseBody;
-    } else {
-      throw Exception('HTTP request failed with status ${response.statusCode}');
+  dynamic _handleResponse(Response response) {
+    switch (response.statusCode) {
+      case 200:
+        return response.body.isEmpty ? null : jsonDecode(response.body);
+      case 204:
+        return null;
+      case 400:
+        throw HttpError.badRequest;
+      case 401:
+        throw HttpError.unauthorized;
+      case 403:
+        throw HttpError.forbidden;
+      case 404:
+        throw HttpError.notFound;
+      default:
+        throw HttpError.serverError;
     }
   }
 }
