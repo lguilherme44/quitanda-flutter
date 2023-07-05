@@ -8,6 +8,7 @@ import 'package:goya/src/pages/home/components/item_tile.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import '../../main/factories/services/product/product_service.dart';
 import 'components/category_tile.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -66,7 +67,16 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     bool isLoading = isLoadingCategories || isLoadingProducts;
 
-    print(isLoading);
+    if (isLoading) {
+      return Scaffold(
+        body: Center(
+          child: LoadingAnimationWidget.fourRotatingDots(
+            color: CustomColors.customSwatchColor,
+            size: 120,
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
