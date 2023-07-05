@@ -15,7 +15,7 @@ class CategoryService implements GetCategory {
     );
 
     if (response == null) {
-      throw Exception('Failed to fetch products');
+      throw Exception('Failed to fetch categories');
     }
 
     final List<dynamic> responseData = response as List<dynamic>;

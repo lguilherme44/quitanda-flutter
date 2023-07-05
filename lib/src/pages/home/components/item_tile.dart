@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
-import 'package:goya/src/models/item_model.dart';
+import 'package:goya/src/models/products_model.dart';
 import 'package:goya/src/pages/product/product_screen.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 class ItemTile extends StatelessWidget {
-  final ItemModel item;
+  final ProductsModel item;
 
   ItemTile({
     super.key,

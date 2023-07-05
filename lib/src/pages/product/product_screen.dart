@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
-import 'package:goya/src/models/item_model.dart';
+import 'package:goya/src/models/products_model.dart';
 import 'package:goya/src/pages/common_widgets/quantity_widget.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.item});
 
-  final ItemModel item;
+  final ProductsModel item;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();

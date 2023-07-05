@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/main/factories/services/category/category_service.dart';
 import 'package:goya/src/models/categoties_model.dart';
-import 'package:goya/src/models/item_model.dart';
+import 'package:goya/src/models/products_model.dart';
 import 'package:goya/src/pages/home/components/item_tile.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import '../../main/factories/services/product/product_service.dart';
@@ -23,7 +23,7 @@ class _HomeTabState extends State<HomeTab> {
 
   late FToast fToast;
 
-  List<ItemModel> products = [];
+  List<ProductsModel> products = [];
   List<CategoriesModel> categories = [];
 
   String selectedCategory = '';

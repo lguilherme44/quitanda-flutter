@@ -4,7 +4,7 @@ import '../../../infra/http/http_adapter.dart';
 import '../../decorators/decorators.dart';
 
 class HttpClientFactory {
-  static String baseUrl = "http://192.168.0.131:3000/";
+  static String baseUrl = "https://fine-tan-baseball-cap.cyclic.app/";
 
   static HttpClient makeAuthorizeHttpClientAdapter() =>
       AuthorizeHttpClientDecorator(
