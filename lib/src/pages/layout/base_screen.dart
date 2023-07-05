@@ -42,8 +42,8 @@ class _BaseScreenState extends State<BaseScreen> {
           },
           type: BottomNavigationBarType.fixed,
           backgroundColor: CustomColors.customSwatchColor,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.black.withAlpha(200),
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.white,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

@@ -26,6 +26,9 @@ class _HomeTabState extends State<HomeTab> {
   List<ProductsModel> products = [];
   List<CategoriesModel> categories = [];
 
+  bool isLoadingProducts = true;
+  bool isLoadingCategories = true;
+
   String selectedCategory = '';
 
   @override
@@ -40,6 +43,7 @@ class _HomeTabState extends State<HomeTab> {
       final fetchedProducts = await productService.load();
       setState(() {
         products = fetchedProducts;
+        isLoadingProducts = false;
       });
     } catch (error) {
       print('Erro ao carregar produtos: $error');
@@ -51,6 +55,7 @@ class _HomeTabState extends State<HomeTab> {
       final fetchedCategories = await categoryService.load();
       setState(() {
         categories = fetchedCategories;
+        isLoadingCategories = false;
       });
     } catch (error) {
       print('Erro ao carregar categorias: $error');
@@ -59,6 +64,10 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = isLoadingCategories || isLoadingProducts;
+
+    print(isLoading);
+
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
