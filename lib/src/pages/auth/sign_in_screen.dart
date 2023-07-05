@@ -4,13 +4,32 @@ import 'package:goya/src/pages/auth/sign_up_screen.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/components/custom_text_field.dart';
+import 'package:auth0_flutter/auth0_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String domain = dotenv.get('AUTH0_DOMAIN');
+    String clientId = dotenv.get('AUTH0_CLIENTE_ID');
+
     final size = MediaQuery.of(context).size;
+    final auth0 = Auth0(domain, clientId);
+
+    const appScheme = 'greengrocer';
+
+    void onLogin(Function() navigateToScreen) async {
+      final isSuccessLogin =
+          await auth0.webAuthentication(scheme: appScheme).login();
+
+      if (isSuccessLogin != null && isSuccessLogin.accessToken != null) {
+        navigateToScreen();
+      } else {
+        print('Failed to obtain Access Token');
+      }
+    }
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -70,16 +89,6 @@ class SignInScreen extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const CustomTextField(
-                            icon: Icons.email,
-                            label: 'E-mail',
-                            typeField: TextInputType.emailAddress,
-                          ),
-                          const CustomTextField(
-                              icon: Icons.lock,
-                              label: 'Password',
-                              isSecret: true),
-
                           // Entrar
                           SizedBox(
                             height: 50,
@@ -90,10 +99,14 @@ class SignInScreen extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(18))),
                                 onPressed: () => {
-                                      Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(builder: (context) {
-                                        return const BaseScreen();
-                                      }))
+                                      onLogin(() {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const BaseScreen()),
+                                        );
+                                      })
                                     },
                                 child: const Text(
                                   'Entrar',
@@ -101,65 +114,6 @@ class SignInScreen extends StatelessWidget {
                                       fontSize: 18, color: Colors.white),
                                 )),
                           ),
-
-                          // Esqueceu a senha
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                                onPressed: () => {},
-                                child: Text(
-                                  'Esqueceu a senha?',
-                                  style: TextStyle(
-                                      color:
-                                          CustomColors.customConstrastColors),
-                                )),
-                          ),
-
-                          // Divisorr
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: Divider(
-                                  color: Colors.grey.withAlpha(90),
-                                  thickness: 1,
-                                )),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15),
-                                  child: Text('ou'),
-                                ),
-                                Expanded(
-                                    child: Divider(
-                                  color: Colors.grey.withAlpha(90),
-                                  thickness: 1,
-                                )),
-                              ],
-                            ),
-                          ),
-
-                          // Novo usuário
-                          SizedBox(
-                            height: 50,
-                            child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18)),
-                                    side: const BorderSide(
-                                        width: 1, color: Colors.green)),
-                                onPressed: () => {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (builder) {
-                                        return SignUpScreen();
-                                      }))
-                                    },
-                                child: const Text(
-                                  'Criar conta',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.green),
-                                )),
-                          )
                         ]),
                   )
                 ],

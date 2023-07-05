@@ -1,5 +1,5 @@
 import 'package:goya/src/domain/usecases/categories/getCategory.dart';
-import 'package:goya/src/models/categoties_model.dart';
+import 'package:goya/src/domain/models/categoties_model.dart';
 import '../../http/http.dart';
 
 class CategoryService implements GetCategory {

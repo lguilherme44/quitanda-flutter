@@ -3,8 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:goya/src/pages/home/home_tab.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 
@@ -18,7 +22,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: FToastBuilder(),
       darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
+      home: const SignInScreen(),
+      routes: {
+        '/callback': (context) => const HomeTab(),
+      },
       theme: ThemeData(
         textTheme: GoogleFonts.robotoTextTheme(),
         textSelectionTheme: const TextSelectionThemeData(
@@ -37,7 +45,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
-      home: const SignInScreen(),
     );
   }
 }

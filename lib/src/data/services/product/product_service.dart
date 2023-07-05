@@ -1,4 +1,4 @@
-import 'package:goya/src/models/products_model.dart';
+import 'package:goya/src/domain/models/products_model.dart';
 import '../../../domain/usecases/products/getProducts.dart';
 import '../../http/http.dart';
 
