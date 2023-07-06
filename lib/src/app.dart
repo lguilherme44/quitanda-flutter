@@ -26,6 +26,15 @@ class AppWidget extends StatelessWidget {
         },
         theme: ThemeData(
           textTheme: GoogleFonts.robotoTextTheme(),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              textStyle: const TextStyle(fontSize: 16),
+              backgroundColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+          ),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.grey,
           ),
