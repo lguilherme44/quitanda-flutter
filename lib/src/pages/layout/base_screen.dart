@@ -1,9 +1,10 @@
-import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+import '../auth/components/logout_button.dart';
+import '../auth/sign_controller.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -16,18 +17,24 @@ class _BaseScreenState extends State<BaseScreen> {
   int currentIndex = 0;
   final pageController = PageController();
 
-  String domain = dotenv.get('AUTH0_DOMAIN');
-  String clientId = dotenv.get('AUTH0_CLIENTE_ID');
+  @override
+  void initState() {
+    super.initState();
+
+    final controller = context.read<SignController>();
+
+    controller.addListener(() {
+      if (controller.state == AuthState.success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const SignInScreen()),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final auth0 = Auth0(domain, clientId);
-
-    Future<void> logoutAction(Function() navigateToScreen) async {
-      await auth0.webAuthentication(scheme: 'greengrocer').logout();
-      navigateToScreen();
-    }
-
     return Scaffold(
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
@@ -40,29 +47,12 @@ class _BaseScreenState extends State<BaseScreen> {
           Container(
             color: Colors.blue,
           ),
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
                 height: 50,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18))),
-                    onPressed: () async => {
-                          await logoutAction(() {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignInScreen()),
-                            );
-                          }),
-                        },
-                    child: const Text(
-                      'Logout',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    )),
+                child: LogoutButton(),
               ),
             ],
           ),

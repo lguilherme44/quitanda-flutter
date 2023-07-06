@@ -1,35 +1,40 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:goya/src/pages/auth/sign_up_screen.dart';
+import 'package:goya/src/pages/auth/components/auth_button.dart';
+import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/config/custom_colors.dart';
-import 'package:goya/src/components/custom_text_field.dart';
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String domain = dotenv.get('AUTH0_DOMAIN');
-    String clientId = dotenv.get('AUTH0_CLIENTE_ID');
+  State<SignInScreen> createState() => _SignInScreenState();
+}
 
-    final size = MediaQuery.of(context).size;
-    final auth0 = Auth0(domain, clientId);
+class _SignInScreenState extends State<SignInScreen> {
+  late final SignController controller;
 
-    const appScheme = 'greengrocer';
+  @override
+  void initState() {
+    super.initState();
 
-    void onLogin(Function() navigateToScreen) async {
-      final isSuccessLogin =
-          await auth0.webAuthentication(scheme: appScheme).login();
+    final controller = context.read<SignController>();
 
-      if (isSuccessLogin != null && isSuccessLogin.accessToken != null) {
-        navigateToScreen();
-      } else {
-        print('Failed to obtain Access Token');
+    controller.addListener(() {
+      if (controller.state == AuthState.success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const BaseScreen()),
+        );
       }
-    }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -86,33 +91,13 @@ class SignInScreen extends StatelessWidget {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(45)),
                     ),
-                    child: Column(
+                    child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           // Entrar
                           SizedBox(
                             height: 50,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18))),
-                                onPressed: () => {
-                                      onLogin(() {
-                                        Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const BaseScreen()),
-                                        );
-                                      })
-                                    },
-                                child: const Text(
-                                  'Entrar',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                )),
+                            child: AuthButton(),
                           ),
                         ]),
                   )
