@@ -36,6 +36,7 @@ class HttpAdapter implements HttpClient {
         throw HttpError.invalidMethod;
       }
     } catch (error) {
+      print(error);
       throw HttpError.serverError;
     }
 

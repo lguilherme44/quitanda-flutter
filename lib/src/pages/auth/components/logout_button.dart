@@ -14,7 +14,7 @@ class LogoutButton extends StatelessWidget {
             backgroundColor: Colors.green,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18))),
-        onPressed: () => {controller.onLogout()},
+        onPressed: () => {controller.onLogoutMobile()},
         child: const Text(
           'Logout',
           style: TextStyle(fontSize: 18, color: Colors.white),
