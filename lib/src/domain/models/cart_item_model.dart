@@ -5,22 +5,24 @@ class CartItemModel {
   int quantity;
 
   CartItemModel({required this.item, required this.quantity});
+
+  double totalPrice() => item.price * quantity;
 }
 
 List<CartItemModel> cartItems = [
   CartItemModel(
     item: ProductsModel(
         description: 'description 1',
-        imgUrl: 'imgUrl',
+        imgUrl: 'assets/fruits/apple.png',
         itemName: 'Maça',
         price: 9.90,
-        unit: 'un'),
-    quantity: 2,
+        unit: 'kg'),
+    quantity: 1,
   ),
   CartItemModel(
     item: ProductsModel(
         description: 'description 2',
-        imgUrl: 'imgUrl',
+        imgUrl: 'assets/fruits/mango.png',
         itemName: 'Manga',
         price: 10.90,
         unit: 'un'),
@@ -29,10 +31,10 @@ List<CartItemModel> cartItems = [
   CartItemModel(
     item: ProductsModel(
         description: 'description 3',
-        imgUrl: 'imgUrl',
+        imgUrl: 'assets/fruits/guava.png',
         itemName: 'Goiaba',
         price: 11.99,
-        unit: 'un'),
+        unit: 'kg'),
     quantity: 3,
   ),
 ];
