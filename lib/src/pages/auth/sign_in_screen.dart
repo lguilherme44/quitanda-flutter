@@ -59,39 +59,30 @@ class _SignInScreenState extends State<SignInScreen> {
               height: size.height,
               width: size.width,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Nome do App
-                        Text.rich(
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 35),
+                    child: Text.rich(
+                      TextSpan(
+                        style: const TextStyle(fontSize: 40),
+                        children: [
+                          const TextSpan(
+                              text: 'Empório',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
                           TextSpan(
-                            style: const TextStyle(fontSize: 40),
-                            children: [
-                              const TextSpan(
-                                  text: 'Empório',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold)),
-                              TextSpan(
-                                  text: 'Goya',
-                                  style: TextStyle(
-                                      color:
-                                          CustomColors.customConstrastColors))
-                            ],
+                            text: 'Goya',
+                            style: TextStyle(
+                              color: CustomColors.customConstrastColors,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 30,
-                    ),
-                    child: AuthButton(
-                        width: MediaQuery.of(context).size.width * 0.8),
-                  )
+                  AuthButton(width: MediaQuery.of(context).size.width * 0.5)
                 ],
               ),
             ),

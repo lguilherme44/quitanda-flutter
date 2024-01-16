@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class GlassMorphism extends StatelessWidget {
-  final double blur;
-  final double opacity;
+  final double? blur;
+  final double? opacity;
+  final double? borderRadius;
   final Widget child;
 
   const GlassMorphism({
     Key? key,
+    this.borderRadius,
     required this.child,
-    required this.blur,
-    required this.opacity,
+    this.blur,
+    this.opacity,
   }) : super(key: key);
 
   @override
@@ -18,11 +20,11 @@ class GlassMorphism extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+        filter: ImageFilter.blur(sigmaX: blur ?? 20, sigmaY: blur ?? 0.2),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(opacity),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            color: Colors.white.withOpacity(opacity ?? 0.2),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 20)),
             border: Border.all(
               width: 1.5,
               color: Colors.white.withOpacity(0.2),
