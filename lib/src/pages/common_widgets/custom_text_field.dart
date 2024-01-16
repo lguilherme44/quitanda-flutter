@@ -38,6 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: TextFormField(
+          initialValue: 'teste',
           inputFormatters: widget.inputFormatters,
           obscureText: isObscure,
           keyboardType: keyboardType,

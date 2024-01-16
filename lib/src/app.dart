@@ -18,27 +18,18 @@ class AppWidget extends StatelessWidget {
         title: 'Quitanda Goya',
         debugShowCheckedModeBanner: false,
         builder: FToastBuilder(),
-        darkTheme: ThemeData.dark(),
-        themeMode: ThemeMode.light,
+        // darkTheme: ThemeData.dark(),
+        // themeMode: ThemeMode.light,
         home: const SignInScreen(),
         routes: {
           '/callback': (context) => const HomeTab(),
         },
         theme: ThemeData(
-          textTheme: GoogleFonts.robotoTextTheme(),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              textStyle: const TextStyle(fontSize: 16),
-              backgroundColor: Colors.green,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-            ),
-          ),
+          textTheme: GoogleFonts.abelTextTheme(),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.grey,
           ),
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.grey,
           appBarTheme: AppBarTheme(
             iconTheme: const IconThemeData(
               color: Colors.white,
@@ -49,7 +40,7 @@ class AppWidget extends StatelessWidget {
             backgroundColor: CustomColors.customSwatchColor,
           ),
           useMaterial3: true,
-          scaffoldBackgroundColor: Colors.white.withAlpha(190),
+          scaffoldBackgroundColor: Colors.grey[300],
         ),
       ),
     );

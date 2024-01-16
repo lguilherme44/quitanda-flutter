@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
+import 'package:goya/src/pages/profile/profile_tab.dart';
 import 'package:provider/provider.dart';
-import '../auth/components/logout_button.dart';
 import '../auth/sign_controller.dart';
 import '../cart/cart_tab.dart';
 
@@ -42,19 +42,11 @@ class _BaseScreenState extends State<BaseScreen> {
         controller: pageController,
         children: [
           const HomeTab(),
-          CartTab(),
+          const CartTab(),
           Container(
             color: Colors.blue,
           ),
-          const Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 50,
-                child: LogoutButton(),
-              ),
-            ],
-          ),
+          const ProfileTab()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -67,8 +59,8 @@ class _BaseScreenState extends State<BaseScreen> {
           },
           type: BottomNavigationBarType.fixed,
           backgroundColor: CustomColors.customSwatchColor,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.white,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withAlpha(99),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),

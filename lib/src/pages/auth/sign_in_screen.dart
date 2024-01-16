@@ -6,7 +6,6 @@ import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -54,7 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-          backgroundColor: CustomColors.customSwatchColor,
+          backgroundColor: const Color(0xFF202123),
           body: SingleChildScrollView(
             child: SizedBox(
               height: size.height,
@@ -66,7 +65,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Nome do App
-                      Text.rich(TextSpan(
+                      Text.rich(
+                        TextSpan(
                           style: const TextStyle(fontSize: 40),
                           children: [
                             const TextSpan(
@@ -78,43 +78,22 @@ class _SignInScreenState extends State<SignInScreen> {
                                 text: 'Goya',
                                 style: TextStyle(
                                     color: CustomColors.customConstrastColors))
-                          ])),
-
-                      // Categorias
-                      SizedBox(
-                        height: 35,
-                        child: DefaultTextStyle(
-                          style: const TextStyle(fontSize: 25),
-                          child: AnimatedTextKit(
-                              pause: Duration.zero,
-                              repeatForever: true,
-                              animatedTexts: [
-                                FadeAnimatedText('Frutas'),
-                                FadeAnimatedText('Legumes'),
-                                FadeAnimatedText('Verduras'),
-                              ]),
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   )),
                   // Formulario
                   Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 40),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(45)),
+                      vertical: 10,
                     ),
-                    child: const Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          // Entrar
-                          SizedBox(
-                            height: 50,
-                            child: AuthButton(),
-                          ),
-                        ]),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: AuthButton(
+                          width: MediaQuery.of(context).size.width * 0.8),
+                    ),
                   )
                 ],
               ),
