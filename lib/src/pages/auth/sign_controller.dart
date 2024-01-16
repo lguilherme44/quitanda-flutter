@@ -3,7 +3,7 @@ import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-enum AuthState { idle, success, error, loading }
+enum AuthState { idle, success, error, loading, isLogged }
 
 class SignController extends ChangeNotifier {
   String domain = dotenv.get('AUTH0_DOMAIN');
@@ -35,6 +35,26 @@ class SignController extends ChangeNotifier {
 
     if (isSuccessLogin.accessToken != null) {
       state = AuthState.success;
+      notifyListeners();
+    } else {
+      state = AuthState.error;
+      notifyListeners();
+    }
+  }
+
+  Future<void> isLogged() async {
+    if (auth0Mobile == null) {
+      await initializeAuth0Mobile();
+    }
+
+    state = AuthState.loading;
+    notifyListeners();
+
+    final isLogged =
+        await auth0Mobile?.credentialsManager.hasValidCredentials();
+
+    if (isLogged == true) {
+      state = AuthState.isLogged;
       notifyListeners();
     } else {
       state = AuthState.error;

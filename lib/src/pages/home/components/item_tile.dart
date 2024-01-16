@@ -49,9 +49,10 @@ class ItemTile extends StatelessWidget {
                   // Nome
                   Text(
                     item.itemName,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade700,
                     ),
                   ),
                   // Preço - Unidade
@@ -60,9 +61,9 @@ class ItemTile extends StatelessWidget {
                       Text(
                         utilsServices.priceToCurrency(item.price),
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade500,
+                          fontWeight: FontWeight.normal,
                           fontSize: 20,
-                          color: CustomColors.customSwatchColor,
                         ),
                       ),
                       Text('/${item.unit}',

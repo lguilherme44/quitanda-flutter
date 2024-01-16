@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:goya/src/shared/components/custom_button.dart';
-import 'package:goya/src/shared/components/glassmorphism.dart';
-import 'package:goya/src/shared/components/neumorphism.dart';
 import 'package:provider/provider.dart';
 import '../sign_controller.dart';
 
@@ -15,7 +13,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = context.watch<SignController>();
     return SizedBox(
-      width: 210,
+      width: width,
       child: CustomButton(
         onPressed: () {
           if (kIsWeb) {

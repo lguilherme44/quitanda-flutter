@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
-import 'package:goya/src/pages/common_widgets/quantity_widget.dart';
+import 'package:goya/src/shared/components/quantity_widget.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 import '../../../domain/models/cart_item_model.dart';

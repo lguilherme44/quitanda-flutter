@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/material.dart';
 import 'package:goya/src/pages/auth/components/auth_button.dart';
@@ -36,8 +35,19 @@ class _SignInScreenState extends State<SignInScreen> {
           );
     }
 
+    controller.isLogged();
+
     controller.addListener(() {
       if (controller.state == AuthState.success) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const BaseScreen()),
+        );
+      }
+    });
+
+    controller.addListener(() {
+      if (controller.state == AuthState.isLogged) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const BaseScreen()),
@@ -82,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  AuthButton(width: MediaQuery.of(context).size.width * 0.5)
+                  AuthButton(width: MediaQuery.of(context).size.width * 0.7)
                 ],
               ),
             ),
