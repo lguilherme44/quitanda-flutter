@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/cart/components/cart_tile.dart';
+import 'package:goya/src/shared/components/custom_button.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 import '../../domain/models/cart_item_model.dart';
@@ -125,20 +126,15 @@ class _CartTabState extends State<CartTab> {
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child:
-                      const Text('Não', style: TextStyle(color: Colors.green)),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20))),
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: const Text(
-                    'Sim',
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    'Não',
+                    style: TextStyle(color: CustomColors.customSwatchColor),
                   ),
+                ),
+                CustomButton(
+                  height: 35,
+                  onPressed: () => Navigator.of(context).pop(true),
+                  textButton: 'Sim',
                 ),
               ]);
         });

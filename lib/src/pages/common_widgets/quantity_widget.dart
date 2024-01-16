@@ -24,9 +24,8 @@ class QuantityWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
-              color: Colors.green.shade300,
-              spreadRadius: 0.5,
-              blurRadius: 0.5,
+              color: CustomColors.customSwatchColor,
+              blurRadius: 1,
             )
           ]),
       child: Row(

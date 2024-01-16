@@ -25,7 +25,7 @@ class AppWidget extends StatelessWidget {
           '/callback': (context) => const HomeTab(),
         },
         theme: ThemeData(
-          textTheme: GoogleFonts.abelTextTheme(),
+          textTheme: GoogleFonts.robotoTextTheme(),
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Colors.grey,
           ),

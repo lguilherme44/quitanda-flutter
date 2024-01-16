@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:goya/src/config/custom_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   final IconData icon;
@@ -54,15 +55,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   : null,
               labelText: widget.label,
               labelStyle: const TextStyle(fontSize: 15),
-              floatingLabelStyle: const TextStyle(color: Colors.green),
+              floatingLabelStyle:
+                  TextStyle(color: CustomColors.customSwatchColor),
               isDense: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(18),
-                  borderSide: const BorderSide(
-                    color: Colors.green,
+                  borderSide: BorderSide(
+                    color: CustomColors.customSecondaryColor,
                   ))),
         ));
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/common_widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,10 @@ class ProfileTab extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => controller.onLogoutMobile(),
-            icon: const Icon(Icons.logout),
+            icon: Icon(
+              Icons.logout,
+              color: CustomColors.customSecondaryColor,
+            ),
           )
         ],
       ),

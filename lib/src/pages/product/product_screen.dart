@@ -22,7 +22,7 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white.withAlpha(230),
+      backgroundColor: Colors.white.withAlpha(220),
       body: Stack(
         children: [
           // Conteudo
@@ -37,17 +37,12 @@ class _ProductScreenState extends State<ProductScreen> {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(32),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(50),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.green.shade600,
-                          offset: const Offset(0, 2),
-                        ),
-                      ]),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
+                  ),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
