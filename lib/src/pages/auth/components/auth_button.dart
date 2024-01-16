@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:goya/src/shared/components/glassmorphism.dart';
+import 'package:goya/src/shared/components/button_custom.dart';
 import 'package:provider/provider.dart';
 import '../sign_controller.dart';
 
@@ -12,24 +12,20 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<SignController>();
-    return Center(
-      child: InkWell(
-        onTap: () => {
-          if (kIsWeb) controller.onLoginWeb() else controller.onLoginMobile()
+    return Align(
+      alignment: Alignment.center,
+      child: ButtonCustom(
+        width: MediaQuery.of(context).size.width * 0.8,
+        onTapCallback: () {
+          if (kIsWeb) {
+            controller.onLoginWeb();
+          } else {
+            controller.onLoginMobile();
+          }
         },
-        child: SizedBox(
-          width: width,
-          height: 320,
-          child: const GlassMorphism(
-            blur: 20,
-            opacity: 0.2,
-            child: Center(
-              child: Text(
-                'Entrar',
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
+        child: const Text(
+          'Entrar',
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
     );

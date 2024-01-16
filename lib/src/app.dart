@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => SignController())],
       child: MaterialApp(
-        title: 'Quitanda Goya',
+        title: 'Empório Goya',
         debugShowCheckedModeBanner: false,
         builder: FToastBuilder(),
         // darkTheme: ThemeData.dark(),

@@ -2,7 +2,7 @@ class ProductsModel {
   late String description;
   late String imgUrl;
   late String itemName;
-  late double price; // Alterado de int para double
+  late double price;
   late String unit;
 
   ProductsModel({
@@ -17,7 +17,7 @@ class ProductsModel {
     description = json['description'];
     imgUrl = json['imgUrl'];
     itemName = json['itemName'];
-    price = json['price'].toDouble(); // Convertido para double
+    price = json['price'].toDouble();
     unit = json['unit'];
   }
 

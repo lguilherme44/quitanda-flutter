@@ -96,7 +96,7 @@ class _HomeTabState extends State<HomeTab> {
             style: const TextStyle(fontSize: 30),
             children: [
               const TextSpan(
-                text: 'Quitanda',
+                text: 'Empório',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

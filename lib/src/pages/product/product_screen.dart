@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/domain/models/products_model.dart';
 import 'package:goya/src/pages/common_widgets/quantity_widget.dart';
+import 'package:goya/src/shared/components/button_custom.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
@@ -48,80 +49,78 @@ class _ProductScreenState extends State<ProductScreen> {
                         ),
                       ]),
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        //Nome - Quantidade
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                widget.item.itemName,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Nome - Quantidade
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.item.itemName,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 27, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          QuantityWidget(
+                            suffixText: widget.item.unit,
+                            value: cartItemQuantity,
+                            result: (quantity) {
+                              setState(() {
+                                cartItemQuantity = quantity;
+                              });
+                            },
+                          )
+                        ],
+                      ),
+                      // Preço
+                      Text(
+                        utilsServices.priceToCurrency(widget.item.price),
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customSwatchColor,
+                        ),
+                      ),
+
+                      // Descrição
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                          child: SingleChildScrollView(
+                            child: Text(widget.item.description,
                                 style: const TextStyle(
-                                    fontSize: 27, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            QuantityWidget(
-                              suffixText: widget.item.unit,
-                              value: cartItemQuantity,
-                              result: (quantity) {
-                                setState(() {
-                                  cartItemQuantity = quantity;
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                        // Preço
-                        Text(
-                          utilsServices.priceToCurrency(widget.item.price),
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.customSwatchColor,
-                          ),
-                        ),
-
-                        // Descrição
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                            ),
-                            child: SingleChildScrollView(
-                              child: Text(widget.item.description,
-                                  style: const TextStyle(
-                                    height: 1.5,
-                                  )),
-                            ),
-                          ),
-                        ),
-
-                        // Botão
-                        SizedBox(
-                          height: 55,
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  height: 1.5,
                                 )),
-                            onPressed: () {},
-                            label: const Text(
-                              'Adicionar ao carrinho',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            icon: const Icon(
-                              Icons.shopping_cart_outlined,
+                          ),
+                        ),
+                      ),
+
+                      // Botão
+                      Container(
+                        color: Colors.red,
+                        child: ButtonCustom(
+                          height: 50,
+                          icon: const Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.white,
+                          ),
+                          onTapCallback: () {},
+                          child: const Text(
+                            'Adicionar ao carrinho',
+                            style: TextStyle(
                               color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      ]),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],

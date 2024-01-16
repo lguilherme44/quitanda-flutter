@@ -61,39 +61,36 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   Expanded(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Nome do App
-                      Text.rich(
-                        TextSpan(
-                          style: const TextStyle(fontSize: 40),
-                          children: [
-                            const TextSpan(
-                                text: 'Quitanda',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text: 'Goya',
-                                style: TextStyle(
-                                    color: CustomColors.customConstrastColors))
-                          ],
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Nome do App
+                        Text.rich(
+                          TextSpan(
+                            style: const TextStyle(fontSize: 40),
+                            children: [
+                              const TextSpan(
+                                  text: 'Empório',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: 'Goya',
+                                  style: TextStyle(
+                                      color:
+                                          CustomColors.customConstrastColors))
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  )),
-                  // Formulario
+                      ],
+                    ),
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 10,
+                      vertical: 30,
                     ),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 50,
-                      child: AuthButton(
-                          width: MediaQuery.of(context).size.width * 0.8),
-                    ),
+                    child: AuthButton(
+                        width: MediaQuery.of(context).size.width * 0.8),
                   )
                 ],
               ),
