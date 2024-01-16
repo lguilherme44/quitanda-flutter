@@ -27,176 +27,205 @@ class _HomeTabState extends State<HomeTab> {
   List<ProductsModel> products = [];
   List<CategoriesModel> categories = [];
 
-  bool isLoadingProducts = true;
-  bool isLoadingCategories = true;
-
   String selectedCategory = '';
 
   @override
   void initState() {
     super.initState();
     getProducts();
-    getCagories();
+    getCategories();
+    getProductsFromCategory(1);
   }
 
-  Future<void> getProducts() async {
+  Future<List<ProductsModel>> getProducts() async {
     try {
       final fetchedProducts = await productService.load();
-      setState(() {
-        products = fetchedProducts;
-        isLoadingProducts = false;
-      });
+      return fetchedProducts;
     } catch (error) {
-      print('Erro ao carregar produtos: $error');
+      rethrow;
     }
   }
 
-  Future<void> getCagories() async {
+  Future<List<ProductsModel>> getProductsFromCategory(int categoryId) async {
+    try {
+      final fetchedProducts =
+          await productService.filterProductsFromCategory(categoryId);
+
+      products = fetchedProducts;
+      setState(() {});
+      return fetchedProducts;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<List<CategoriesModel>> getCategories() async {
     try {
       final fetchedCategories = await categoryService.load();
-      setState(() {
-        categories = fetchedCategories;
-        isLoadingCategories = false;
-      });
+      if (fetchedCategories.isNotEmpty && selectedCategory == '') {
+        selectedCategory = fetchedCategories[0].name;
+      }
+
+      return fetchedCategories;
     } catch (error) {
-      print('Erro ao carregar categorias: $error');
+      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = isLoadingCategories || isLoadingProducts;
-
-    if (isLoading) {
-      return Scaffold(
-        body: Center(
-          child: LoadingAnimationWidget.fourRotatingDots(
-            color: CustomColors.customSwatchColor,
-            size: 120,
-          ),
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {},
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+    return FutureBuilder(
+        future: Future.wait([getProducts(), getCategories()]),
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting &&
+              selectedCategory == '') {
+            return Center(
+              child: LoadingAnimationWidget.fourRotatingDots(
+                color: CustomColors.customSwatchColor,
+                size: 120,
+              ),
             );
-          },
-        ),
-        elevation: 0,
-        centerTitle: true,
-        title: Text.rich(
-          TextSpan(
-            style: const TextStyle(fontSize: 30),
-            children: [
-              const TextSpan(
-                text: 'Empório',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+          } else if (snapshot.hasError) {
+            return Scaffold(
+              body: Center(
+                child: Text('Error: ${snapshot.error}'),
               ),
-              TextSpan(
-                text: 'Goya',
-                style: TextStyle(color: CustomColors.customConstrastColors),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Container(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: GestureDetector(
-                onTap: () {},
-                child: Badge(
-                  backgroundColor: CustomColors.customConstrastColors,
-                  alignment: Alignment.topRight,
-                  label: const Text(
-                    '0',
-                    style: TextStyle(color: Colors.white, fontSize: 11),
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.shopping_cart),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-            child: TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                isDense: true,
-                hintText: 'Pesquisar',
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade400,
-                  fontSize: 14,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(60),
-                  borderSide: const BorderSide(
-                    width: 0,
-                    style: BorderStyle.none,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 25),
-            height: 40,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (_, index) {
-                return CategoryTile(
-                  onPressed: () {
-                    setState(() {
-                      selectedCategory = categories[index].name;
-                    });
+            );
+          } else if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.data?.isEmpty == true) {
+            return Container();
+          } else {
+            categories = snapshot.data![1];
+
+            return Scaffold(
+              appBar: AppBar(
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () {},
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
+                    );
                   },
-                  category: categories[index].name,
-                  isSelected: categories[index].name == selectedCategory,
-                );
-              },
-              separatorBuilder: (_, index) => const SizedBox(width: 10),
-              itemCount: categories.length,
-            ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 9 / 11.5,
+                ),
+                elevation: 0,
+                centerTitle: true,
+                title: Text.rich(
+                  TextSpan(
+                    style: const TextStyle(fontSize: 30),
+                    children: [
+                      const TextSpan(
+                        text: 'Empório',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'Goya',
+                        style: TextStyle(
+                            color: CustomColors.customConstrastColors),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: [
+                  Container(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Badge(
+                          backgroundColor: CustomColors.customConstrastColors,
+                          alignment: Alignment.topRight,
+                          label: const Text(
+                            '0',
+                            style: TextStyle(color: Colors.white, fontSize: 11),
+                          ),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.shopping_cart),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              itemCount: products.length,
-              itemBuilder: (_, index) {
-                return ItemTile(
-                  item: products[index],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
+              body: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 16),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        isDense: true,
+                        hintText: 'Pesquisar',
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 14,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(60),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 25),
+                    height: 40,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (_, index) {
+                        return CategoryTile(
+                          onPressed: () {
+                            setState(() {
+                              selectedCategory = categories[index].name;
+                              getProductsFromCategory(categories[index].id);
+                            });
+                          },
+                          category: categories[index].name,
+                          isSelected:
+                              categories[index].name == selectedCategory,
+                        );
+                      },
+                      separatorBuilder: (_, index) => const SizedBox(width: 10),
+                      itemCount: categories.length,
+                    ),
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      padding: const EdgeInsets.all(16),
+                      physics: const BouncingScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 9 / 11.5,
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (_, index) {
+                        return ItemTile(
+                          item: products[index],
+                        );
+                      },
+                    ),
+                  ),
+                  if (products.isEmpty)
+                    const Expanded(child: Text('Nenhum registro encontrado'))
+                ],
+              ),
+            );
+          }
+        });
   }
 }

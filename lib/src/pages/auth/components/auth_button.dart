@@ -17,8 +17,10 @@ class AuthButton extends StatelessWidget {
       child: CustomButton(
         onPressed: () {
           if (kIsWeb) {
+            print('onLoginWeb');
             controller.onLoginWeb();
           } else {
+            print('onLoginMobile');
             controller.onLoginMobile();
           }
         },

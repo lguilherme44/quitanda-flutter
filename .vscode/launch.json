@@ -3,24 +3,27 @@
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [ 
     {
-      "name": "greengrocer",
+      "name": "run web release",
       "request": "launch",
       "type": "dart",
-      
+      "flutterMode": "release",
+      "args": ["-d", "chrome", "--web-browser-flag=--disable-web-security"],
     },
     {
-      "name": "greengrocer (profile mode)",
+      "name": "run web debug",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
+      "flutterMode": "debug",
+      "args": ["-d", "chrome", "--web-browser-flag=--disable-web-security"],
     },
     {
-      "name": "greengrocer (release mode)",
+      "name": "run emulator android debug",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release"
+      "flutterMode": "debug",
+      "args": ["-d", "emulator-5554"],
     }
   ]
 }

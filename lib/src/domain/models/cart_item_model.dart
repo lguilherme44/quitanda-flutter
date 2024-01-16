@@ -12,6 +12,7 @@ class CartItemModel {
 List<CartItemModel> cartItems = [
   CartItemModel(
     item: ProductsModel(
+        id: 1,
         description: 'description 1',
         imgUrl: 'assets/fruits/apple.png',
         itemName: 'Maça',
@@ -21,6 +22,7 @@ List<CartItemModel> cartItems = [
   ),
   CartItemModel(
     item: ProductsModel(
+        id: 2,
         description: 'description 2',
         imgUrl: 'assets/fruits/mango.png',
         itemName: 'Manga',
@@ -30,6 +32,7 @@ List<CartItemModel> cartItems = [
   ),
   CartItemModel(
     item: ProductsModel(
+        id: 3,
         description: 'description 3',
         imgUrl: 'assets/fruits/guava.png',
         itemName: 'Goiaba',

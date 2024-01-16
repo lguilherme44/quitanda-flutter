@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 
 class CategoryTile extends StatelessWidget {
+  final String category;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
   const CategoryTile(
       {super.key,
       required this.category,
       required this.isSelected,
       required this.onPressed});
-
-  final String category;
-  final bool isSelected;
-  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
