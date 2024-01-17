@@ -99,28 +99,6 @@ class _ProductScreenState extends State<ProductScreen> {
                           textButton: 'Adicionar ao carrinho',
                           onPressed: () {},
                         ),
-                        // SizedBox(
-                        //   height: 55,
-                        //   child: ElevatedButton.icon(
-                        //     style: ElevatedButton.styleFrom(
-                        //         backgroundColor: CustomColors.customSwatchColor,
-                        //         shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(15),
-                        //         )),
-                        //     onPressed: ,
-                        //     label: const Text(
-                        //      ,
-                        //       style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 18,
-                        //           fontWeight: FontWeight.bold),
-                        //     ),
-                        //     icon: const Icon(
-                        //       Icons.shopping_cart_outlined,
-                        //       color: Colors.white,
-                        //     ),
-                        //   ),
-                        // ),
                       ]),
                 ),
               )

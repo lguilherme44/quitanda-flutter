@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
   final bool isSecret;
   final TextInputType? typeField;
   final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
 
   const CustomTextField({
     super.key,
@@ -16,6 +17,7 @@ class CustomTextField extends StatefulWidget {
     this.isSecret = false,
     this.typeField,
     this.inputFormatters,
+    this.initialValue,
   });
 
   @override
@@ -39,7 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: TextFormField(
-          initialValue: 'teste',
+          initialValue: widget.initialValue,
           inputFormatters: widget.inputFormatters,
           obscureText: isObscure,
           keyboardType: keyboardType,

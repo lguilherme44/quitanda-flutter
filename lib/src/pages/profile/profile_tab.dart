@@ -30,8 +30,12 @@ class ProfileTab extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-        children: const [
-          CustomTextField(icon: Icons.email, label: 'E-mail'),
+        children: [
+          CustomTextField(
+            icon: Icons.email,
+            label: 'E-mail',
+            initialValue: controller.user?.user.email,
+          ),
           CustomTextField(icon: Icons.email, label: 'Nome'),
           CustomTextField(icon: Icons.email, label: 'Celular'),
           CustomTextField(icon: Icons.email, label: 'CPF', isSecret: true),

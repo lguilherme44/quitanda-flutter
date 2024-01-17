@@ -14,6 +14,8 @@ class SignController extends ChangeNotifier {
 
   var state = AuthState.idle;
 
+  Credentials? user;
+
   Future<void> initializeAuth0Mobile() async {
     auth0Mobile = Auth0(domain, clientId);
   }
@@ -33,6 +35,7 @@ class SignController extends ChangeNotifier {
     try {
       await auth0Mobile!.webAuthentication(scheme: 'greengrocer').login();
 
+      await getUserCredentials();
       state = AuthState.isLogged;
       notifyListeners();
     } catch (e) {
@@ -55,11 +58,26 @@ class SignController extends ChangeNotifier {
 
     if (isLogged == true) {
       state = AuthState.isLogged;
+
+      await getUserCredentials();
+
       notifyListeners();
     } else {
       state = AuthState.error;
       notifyListeners();
     }
+  }
+
+  Future<Credentials> getUserCredentials() async {
+    if (auth0Mobile == null) {
+      await initializeAuth0Mobile();
+    }
+
+    final credentials = await auth0Mobile!.credentialsManager.credentials();
+
+    user = credentials;
+
+    return credentials;
   }
 
   Future<void> onLogoutMobile() async {
