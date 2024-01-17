@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:goya/src/config/custom_colors.dart';
 import 'package:provider/provider.dart';
 import '../sign_controller.dart';
 
 class LogoutButton extends StatelessWidget {
-  const LogoutButton({super.key});
+  const LogoutButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<SignController>();
 
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18))),
-        onPressed: () => {controller.onLogoutMobile()},
-        child: const Text(
-          'Logout',
-          style: TextStyle(fontSize: 18, color: Colors.white),
-        ));
+    return ListTile(
+      title: Row(
+        children: [
+          Icon(
+            Icons.logout,
+            color: CustomColors.customSecondaryColor,
+          ),
+          const SizedBox(width: 7),
+          Text(
+            'Sair',
+            style: TextStyle(
+                color: CustomColors.customSwatchColor,
+                fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+      onTap: () => controller.onLogoutMobile(),
+    );
   }
 }

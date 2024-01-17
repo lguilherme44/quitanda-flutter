@@ -5,6 +5,7 @@ import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
+import 'package:goya/src/pages/product/product_controller.dart';
 import 'package:provider/provider.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,7 +14,10 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => SignController())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => SignController()),
+        ChangeNotifierProvider(create: (_) => ProductController())
+      ],
       child: MaterialApp(
         title: 'Empório Goya',
         debugShowCheckedModeBanner: false,

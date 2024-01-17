@@ -35,19 +35,13 @@ class _SignInScreenState extends State<SignInScreen> {
           );
     }
 
-    controller.isLogged();
+    if (controller.state != AuthState.isLogout) {
+      controller.isLogged();
+    }
 
     controller.addListener(() {
-      if (controller.state == AuthState.success) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const BaseScreen()),
-        );
-      }
-    });
-
-    controller.addListener(() {
-      if (controller.state == AuthState.isLogged) {
+      if (controller.state == AuthState.success ||
+          controller.state == AuthState.isLogged) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const BaseScreen()),

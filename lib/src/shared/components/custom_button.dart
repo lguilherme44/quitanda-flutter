@@ -10,6 +10,7 @@ class CustomButton extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final void Function()? onPressed;
   final String textButton;
+  final bool showBackground;
 
   const CustomButton({
     super.key,
@@ -18,6 +19,7 @@ class CustomButton extends StatelessWidget {
     this.icon,
     this.textStyle,
     this.borderRadius,
+    this.showBackground = true,
     required this.onPressed,
     required this.textButton,
   });
@@ -33,7 +35,9 @@ class CustomButton extends StatelessWidget {
               )
             : ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: CustomColors.customSecondaryColor,
+                  backgroundColor: showBackground
+                      ? CustomColors.customSecondaryColor
+                      : Colors.transparent,
                   shape: RoundedRectangleBorder(
                     borderRadius: borderRadius ?? BorderRadius.circular(10),
                   ),
