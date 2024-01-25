@@ -11,6 +11,8 @@ import 'package:goya/src/pages/cart/cart_tab.dart';
 import 'package:goya/src/pages/home/components/item_tile.dart';
 import 'package:goya/src/pages/product/category_controller.dart';
 import 'package:goya/src/pages/product/product_controller.dart';
+import 'package:goya/src/pages/profile/profile_tab.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import 'package:provider/provider.dart';
 import 'components/category_tile.dart';
@@ -47,10 +49,8 @@ class _HomeTabState extends State<HomeTab> {
 
     controller.addListener(() {
       if (controller.state == AuthState.isLogout) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const SignInScreen()),
-        );
+        NavigationHelper.navigateTo(context, const SignInScreen(),
+            replace: true);
       }
     });
 
@@ -147,11 +147,7 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CartTab()),
-                      );
+                      NavigationHelper.navigateTo(context, const CartTab());
                     },
                     icon: const Icon(Icons.shopping_cart),
                   ),
@@ -195,32 +191,22 @@ class _HomeTabState extends State<HomeTab> {
               ListTile(
                 title: const Text('Carrinho'),
                 onTap: () {
-                  // Adicione a lógica para o Item 1
+                  NavigationHelper.navigateTo(context, const CartTab());
                 },
               ),
               ListTile(
                 title: const Text('Meus pedidos'),
-                onTap: () {
-                  // Adicione a lógica para o Item 2
-                },
+                onTap: () {},
               ),
               ListTile(
                 title: const Text('Meu perfil'),
                 onTap: () {
-                  // Adicione a lógica para o Item 2
+                  NavigationHelper.navigateTo(context, const ProfileTab());
                 },
               ),
               ListTile(
                 title: const Text('Lista de compras'),
-                onTap: () {
-                  // Adicione a lógica para o Item 2
-                },
-              ),
-              ListTile(
-                title: const Text('Meus endereços'),
-                onTap: () {
-                  // Adicione a lógica para o Item 2
-                },
+                onTap: () {},
               ),
               const LogoutButton()
             ],
@@ -250,7 +236,7 @@ class _HomeTabState extends State<HomeTab> {
                         fontSize: 14,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(60),
+                        borderRadius: BorderRadius.circular(20),
                         borderSide: const BorderSide(
                           width: 0,
                           style: BorderStyle.none,

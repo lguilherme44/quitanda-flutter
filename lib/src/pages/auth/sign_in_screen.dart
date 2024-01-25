@@ -4,6 +4,7 @@ import 'package:goya/src/pages/auth/components/auth_button.dart';
 import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
 
@@ -28,9 +29,10 @@ class _SignInScreenState extends State<SignInScreen> {
       controller.initializeAuth0Web();
       auth0Web = controller.auth0Web!;
       auth0Web.onLoad().then(
-            (final credentials) => Navigator.pushReplacement(
+            (final credentials) => NavigationHelper.navigateTo(
               context,
-              MaterialPageRoute(builder: (context) => const BaseScreen()),
+              const BaseScreen(),
+              replace: true,
             ),
           );
     }
@@ -42,10 +44,7 @@ class _SignInScreenState extends State<SignInScreen> {
     controller.addListener(() {
       if (controller.state == AuthState.success ||
           controller.state == AuthState.isLogged) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const BaseScreen()),
-        );
+        NavigationHelper.navigateTo(context, const BaseScreen(), replace: true);
       }
     });
   }

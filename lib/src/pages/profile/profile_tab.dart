@@ -31,14 +31,48 @@ class ProfileTab extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(16, 32, 16, 16),
         children: [
-          CustomTextField(
-            icon: Icons.email,
-            label: 'E-mail',
-            initialValue: controller.user?.user.email,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 32),
+            child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey[400],
+              child: ClipOval(
+                child: Image.network(
+                  controller.user?.user.pictureUrl.toString() ?? '',
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: 40,
+                    );
+                  },
+                ),
+              ),
+            ),
           ),
-          CustomTextField(icon: Icons.email, label: 'Nome'),
-          CustomTextField(icon: Icons.email, label: 'Celular'),
-          CustomTextField(icon: Icons.email, label: 'CPF', isSecret: true),
+          if (controller.user?.user.name != null)
+            CustomTextField(
+              icon: Icons.email,
+              label: 'Nome',
+              initialValue: controller.user?.user.name,
+            ),
+          if (controller.user?.user.email != null)
+            CustomTextField(
+              icon: Icons.email,
+              label: 'E-mail',
+              initialValue: controller.user?.user.email,
+              typeField: TextInputType.emailAddress,
+            ),
+          if (controller.user?.user.phoneNumber != null)
+            CustomTextField(
+              icon: Icons.email,
+              label: 'Celular',
+              initialValue: controller.user?.user.phoneNumber,
+              typeField: TextInputType.phone,
+            ),
         ],
       ),
     );

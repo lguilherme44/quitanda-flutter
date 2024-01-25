@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/domain/models/products_model.dart';
 import 'package:goya/src/pages/product/product_screen.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 class ItemTile extends StatelessWidget {
@@ -21,11 +22,12 @@ class ItemTile extends StatelessWidget {
         // Conteudo
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-              return ProductScreen(
+            NavigationHelper.navigateTo(
+              context,
+              ProductScreen(
                 item: item,
-              );
-            }));
+              ),
+            );
           },
           child: Card(
             elevation: 1,

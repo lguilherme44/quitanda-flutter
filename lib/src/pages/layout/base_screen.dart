@@ -3,6 +3,7 @@ import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
 import 'package:goya/src/pages/profile/profile_tab.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:provider/provider.dart';
 import '../auth/sign_controller.dart';
 import '../cart/cart_tab.dart';
@@ -26,10 +27,8 @@ class _BaseScreenState extends State<BaseScreen> {
 
     controller.addListener(() {
       if (controller.state == AuthState.success) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const SignInScreen()),
-        );
+        NavigationHelper.navigateTo(context, const SignInScreen(),
+            replace: true);
       }
     });
   }

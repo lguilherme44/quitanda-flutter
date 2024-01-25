@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/pages/cart/components/cart_tile.dart';
+import 'package:goya/src/pages/home/home_tab.dart';
+import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/shared/components/custom_button.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
 
 import '../../domain/models/cart_item_model.dart';
@@ -39,7 +42,7 @@ class _CartTabState extends State<CartTab> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.of(context).pop();
+            NavigationHelper.navigateTo(context, const BaseScreen());
           },
         ),
         title: const Text(
