@@ -10,7 +10,7 @@ class CategoryService implements GetCategory {
   @override
   Future<List<CategoriesModel>> load() async {
     final response = await httpClient.request(
-      url: 'categories',
+      url: '/categories',
       method: 'get',
     );
 

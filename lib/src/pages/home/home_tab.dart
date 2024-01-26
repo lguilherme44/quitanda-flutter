@@ -64,16 +64,6 @@ class _HomeTabState extends State<HomeTab> {
       }
     });
 
-    productController.addListener(() {
-      if (productController.state == ProductState.success) {
-        setState(() {
-          products = productController.products;
-        });
-      } else if (productController.state == ProductState.error) {
-        customToasty();
-      }
-    });
-
     categoryController.addListener(() {
       if (categoryController.state == CategoryState.success) {
         setState(() {
