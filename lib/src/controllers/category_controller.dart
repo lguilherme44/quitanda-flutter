@@ -17,7 +17,6 @@ class CategoryController extends ChangeNotifier {
 
     try {
       categories = await service.load();
-      print(categories[0].name);
       state = CategoryState.success;
       notifyListeners();
     } catch (e) {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/controllers/cart_controller.dart';
 import 'package:goya/src/pages/cart/components/cart_tile.dart';
-import 'package:goya/src/pages/home/home_tab.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/shared/components/custom_button.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
-
-import '../../domain/models/cart_item_model.dart';
+import 'package:provider/provider.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({super.key});
@@ -19,24 +18,10 @@ class CartTab extends StatefulWidget {
 class _CartTabState extends State<CartTab> {
   final utilsServices = UtilsServices();
 
-  void removeItemFromCart(CartItemModel cartItem) {
-    setState(() {
-      cartItems.remove(cartItem);
-    });
-  }
-
-  double cartTotalPrice() {
-    double total = 0;
-
-    for (var item in cartItems) {
-      total += item.totalPrice();
-    }
-
-    return total;
-  }
-
   @override
   Widget build(BuildContext context) {
+    CartController cartController = context.watch<CartController>();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,10 +39,13 @@ class _CartTabState extends State<CartTab> {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: cartItems.length,
+              itemCount: cartController.cartItems.length,
               itemBuilder: (_, index) {
                 return CartTile(
-                    cartItem: cartItems[index], remove: removeItemFromCart);
+                  cartItem: cartController.cartItems[index],
+                  remove: (cartItem) =>
+                      cartController.removeFromCart(cartItem.product),
+                );
               },
             ),
           ),
@@ -85,7 +73,8 @@ class _CartTabState extends State<CartTab> {
                   style: TextStyle(fontSize: 12),
                 ),
                 Text(
-                  utilsServices.priceToCurrency(cartTotalPrice()),
+                  utilsServices
+                      .priceToCurrency(cartController.cartTotalPrice()),
                   style: TextStyle(
                     fontSize: 23,
                     color: CustomColors.customSwatchColor,

@@ -27,14 +27,14 @@ class _CartTileState extends State<CartTile> {
       child: ListTile(
         // imagem
         leading: Image.asset(
-          widget.cartItem.item.imgUrl,
+          widget.cartItem.product.imgUrl,
           height: 60,
           width: 60,
         ),
 
         // titulo
         title: Text(
-          widget.cartItem.item.itemName,
+          widget.cartItem.product.itemName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -51,7 +51,7 @@ class _CartTileState extends State<CartTile> {
         // qde
         trailing: QuantityWidget(
           value: widget.cartItem.quantity,
-          suffixText: widget.cartItem.item.unit,
+          suffixText: widget.cartItem.product.unit,
           result: ((quantity) {
             setState(() {
               widget.cartItem.quantity = quantity;

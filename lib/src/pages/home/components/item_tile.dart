@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/controllers/cart_controller.dart';
 import 'package:goya/src/domain/models/products_model.dart';
 import 'package:goya/src/pages/product/product_screen.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
+import 'package:provider/provider.dart';
 
 class ItemTile extends StatelessWidget {
   final ProductsModel item;
@@ -17,6 +19,8 @@ class ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = context.read<CartController>();
+
     return Stack(
       children: [
         // Conteudo
@@ -87,13 +91,15 @@ class ItemTile extends StatelessWidget {
             top: 4,
             right: 4,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                cartController.addToCart(item);
+              },
               child: Container(
                 height: 40,
                 width: 35,
                 decoration: BoxDecoration(
                     color: CustomColors.customSwatchColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       topRight: Radius.circular(20),
                     )),

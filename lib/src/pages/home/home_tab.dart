@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/controllers/cart_controller.dart';
+import 'package:goya/src/controllers/category_controller.dart';
+import 'package:goya/src/controllers/product_controller.dart';
 import 'package:goya/src/main/factories/services/category/category_service.dart';
 import 'package:goya/src/domain/models/categoties_model.dart';
 import 'package:goya/src/domain/models/products_model.dart';
@@ -9,8 +12,6 @@ import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/cart/cart_tab.dart';
 import 'package:goya/src/pages/home/components/item_tile.dart';
-import 'package:goya/src/pages/product/category_controller.dart';
-import 'package:goya/src/pages/product/product_controller.dart';
 import 'package:goya/src/pages/profile/profile_tab.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
@@ -88,6 +89,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    CartController cartController = context.watch<CartController>();
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -131,9 +133,9 @@ class _HomeTabState extends State<HomeTab> {
                 child: Badge(
                   backgroundColor: CustomColors.customConstrastColors,
                   alignment: Alignment.topRight,
-                  label: const Text(
-                    '0',
-                    style: TextStyle(color: Colors.white, fontSize: 11),
+                  label: Text(
+                    '${cartController.cartItems.length}',
+                    style: const TextStyle(color: Colors.white, fontSize: 11),
                   ),
                   child: IconButton(
                     onPressed: () {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/controllers/cart_controller.dart';
+import 'package:goya/src/controllers/category_controller.dart';
+import 'package:goya/src/controllers/product_controller.dart';
 import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:goya/src/pages/home/home_tab.dart';
-import 'package:goya/src/pages/product/product_controller.dart';
 import 'package:provider/provider.dart';
 
 class AppWidget extends StatelessWidget {
@@ -16,7 +18,9 @@ class AppWidget extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SignController()),
-        ChangeNotifierProvider(create: (_) => ProductController())
+        ChangeNotifierProvider(create: (_) => ProductController()),
+        ChangeNotifierProvider(create: (_) => CategoryController()),
+        ChangeNotifierProvider(create: (_) => CartController())
       ],
       child: MaterialApp(
         title: 'Empório Goya',
