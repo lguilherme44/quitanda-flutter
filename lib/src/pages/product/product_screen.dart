@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
+import 'package:goya/src/controllers/cart_controller.dart';
 import 'package:goya/src/domain/models/products_model.dart';
+import 'package:goya/src/pages/cart/cart_tab.dart';
 import 'package:goya/src/shared/components/custom_button.dart';
 import 'package:goya/src/shared/components/quantity_widget.dart';
+import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
+import 'package:provider/provider.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key, required this.item});
@@ -21,8 +25,45 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<CartController>();
+
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(220),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        actions: [
+          Container(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: GestureDetector(
+                onTap: () {},
+                child: Badge(
+                  backgroundColor: CustomColors.customConstrastColors,
+                  alignment: Alignment.topRight,
+                  label: Text(
+                    '${controller.cartItems.length}',
+                    style: const TextStyle(color: Colors.white, fontSize: 11),
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      NavigationHelper.navigateTo(context, const CartTab());
+                    },
+                    icon: const Icon(
+                      Icons.shopping_cart,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
       body: Stack(
         children: [
           // Conteudo
@@ -97,25 +138,14 @@ class _ProductScreenState extends State<ProductScreen> {
                         // Botão
                         CustomButton(
                           textButton: 'Adicionar ao carrinho',
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.addToCart(widget.item);
+                          },
                         ),
                       ]),
                 ),
               )
             ],
-          ),
-
-          Positioned(
-            left: 10,
-            top: 10,
-            child: SafeArea(
-              child: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                ),
-              ),
-            ),
           ),
         ],
       ),

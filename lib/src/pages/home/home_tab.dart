@@ -13,6 +13,7 @@ import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/cart/cart_tab.dart';
 import 'package:goya/src/pages/home/components/item_tile.dart';
 import 'package:goya/src/pages/profile/profile_tab.dart';
+import 'package:goya/src/utils/global_keys.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import 'package:provider/provider.dart';
@@ -139,9 +140,13 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      NavigationHelper.navigateTo(context, const CartTab());
+                      NavigationHelper.navigateTo(context, const CartTab(),
+                          replace: true);
                     },
-                    icon: const Icon(Icons.shopping_cart),
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      key: cartIconKey,
+                    ),
                   ),
                 ),
               ),

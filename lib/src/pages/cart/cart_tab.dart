@@ -5,6 +5,7 @@ import 'package:goya/src/pages/cart/components/cart_tile.dart';
 import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:goya/src/shared/components/custom_button.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
+import 'package:goya/src/utils/utils_components.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,31 @@ class _CartTabState extends State<CartTab> {
           'Carrinho',
           style: TextStyle(fontSize: 18),
         ),
+        actions: [
+          Container(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: GestureDetector(
+                onTap: () {},
+                child: Badge(
+                  backgroundColor: CustomColors.customConstrastColors,
+                  alignment: Alignment.topRight,
+                  label: Text(
+                    '${cartController.cartItems.length}',
+                    style: const TextStyle(color: Colors.white, fontSize: 11),
+                  ),
+                  child: IconButton(
+                    onPressed: () async {
+                      await showConfirmationClearCart(cartController, context);
+                    },
+                    icon: const Icon(Icons.delete),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -91,7 +117,7 @@ class _CartTabState extends State<CartTab> {
                       ),
                     ),
                     onPressed: () async {
-                      bool? result = await showOrderConfirmation();
+                      bool? result = await showOrderConfirmation(context);
 
                       print(result);
                     },
@@ -107,34 +133,5 @@ class _CartTabState extends State<CartTab> {
         ],
       ),
     );
-  }
-
-  Future<bool?> showOrderConfirmation() {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              elevation: 0,
-              title: const Text('Confirmação'),
-              content: const Text('Deseja realmente concluir o pedido?'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text(
-                    'Não',
-                    style: TextStyle(color: CustomColors.customSwatchColor),
-                  ),
-                ),
-                CustomButton(
-                  height: 35,
-                  onPressed: () => Navigator.of(context).pop(true),
-                  textButton: 'Sim',
-                ),
-              ]);
-        });
   }
 }

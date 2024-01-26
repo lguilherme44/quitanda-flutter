@@ -36,6 +36,11 @@ class CartController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void cleanCart() {
+    cartItems = [];
+    notifyListeners();
+  }
+
   double cartTotalPrice() {
     double total = 0;
 

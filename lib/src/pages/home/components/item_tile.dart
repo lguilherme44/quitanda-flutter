@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:goya/src/config/custom_colors.dart';
 import 'package:goya/src/controllers/cart_controller.dart';
 import 'package:goya/src/domain/models/products_model.dart';
+import 'package:goya/src/pages/home/components/fly_to_cart.dart';
 import 'package:goya/src/pages/product/product_screen.dart';
+import 'package:goya/src/utils/global_keys.dart';
 import 'package:goya/src/utils/navigation_helper.dart';
 import 'package:goya/src/utils/utils_services.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,29 @@ class ItemTile extends StatelessWidget {
   });
 
   final UtilsServices utilsServices = UtilsServices();
+
+  void _startAddToCartAnimation(
+      BuildContext context, ProductsModel item, RenderBox box) {
+    OverlayEntry overlayEntry = OverlayEntry(
+      builder: (context) => FlyToCartAnimation(
+        startPosition: box.localToGlobal(Offset.zero),
+        endPosition: _getCartIconPosition(),
+        item: item,
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry);
+
+    // Aguarde o fim da animação antes de remover o overlay
+    Future.delayed(const Duration(seconds: 1), () {
+      overlayEntry.remove();
+    });
+  }
+
+  Offset _getCartIconPosition() {
+    RenderBox box = cartIconKey.currentContext?.findRenderObject() as RenderBox;
+    return box.localToGlobal(Offset.zero);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +118,8 @@ class ItemTile extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 cartController.addToCart(item);
+                _startAddToCartAnimation(
+                    context, item, context.findRenderObject() as RenderBox);
               },
               child: Container(
                 height: 40,
