@@ -12,10 +12,8 @@ class CategoryController extends ChangeNotifier {
   late List<CategoriesModel> categories;
 
   Future<void> fetchCategories() async {
-    state = CategoryState.loading;
-    notifyListeners();
-
     try {
+      state = CategoryState.loading;
       categories = await service.load();
       state = CategoryState.success;
       notifyListeners();

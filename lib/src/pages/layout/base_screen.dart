@@ -22,15 +22,6 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
     super.initState();
-
-    final controller = context.read<SignController>();
-
-    controller.addListener(() {
-      if (controller.state == AuthState.success) {
-        NavigationHelper.navigateTo(context, const SignInScreen(),
-            replace: true);
-      }
-    });
   }
 
   @override

@@ -36,17 +36,6 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           );
     }
-
-    if (controller.state != AuthState.isLogout) {
-      controller.isLogged();
-    }
-
-    controller.addListener(() {
-      if (controller.state == AuthState.success ||
-          controller.state == AuthState.isLogged) {
-        NavigationHelper.navigateTo(context, const BaseScreen(), replace: true);
-      }
-    });
   }
 
   @override

@@ -8,8 +8,6 @@ import 'package:goya/src/main/factories/services/category/category_service.dart'
 import 'package:goya/src/domain/models/categoties_model.dart';
 import 'package:goya/src/domain/models/products_model.dart';
 import 'package:goya/src/pages/auth/components/logout_button.dart';
-import 'package:goya/src/pages/auth/sign_controller.dart';
-import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:goya/src/pages/cart/cart_tab.dart';
 import 'package:goya/src/pages/home/components/item_tile.dart';
 import 'package:goya/src/pages/profile/profile_tab.dart';
@@ -44,17 +42,9 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    final controller = context.read<SignController>();
 
     categoryController.fetchCategories();
     productController.fetchProductsFromId(1);
-
-    controller.addListener(() {
-      if (controller.state == AuthState.isLogout) {
-        NavigationHelper.navigateTo(context, const SignInScreen(),
-            replace: true);
-      }
-    });
 
     productController.addListener(() {
       if (productController.state == ProductState.success) {

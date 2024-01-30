@@ -29,17 +29,15 @@ class ProductController extends ChangeNotifier {
   }
 
   Future<void> fetchProductsFromId(int selectedCategory) async {
-    state = ProductState.loading;
-    notifyListeners();
-
     try {
+      state = ProductState.loading;
+      notifyListeners();
       products =
           await productService.filterProductsFromCategory(selectedCategory);
       state = ProductState.success;
       notifyListeners();
     } catch (e) {
       state = ProductState.error;
-      notifyListeners();
     } finally {
       state = ProductState.idle;
       notifyListeners();

@@ -19,7 +19,9 @@ class ProfileTab extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () => controller.onLogoutMobile(),
+            onPressed: () {
+              controller.onLogoutMobile();
+            },
             icon: Icon(
               Icons.logout,
               color: CustomColors.customSecondaryColor,

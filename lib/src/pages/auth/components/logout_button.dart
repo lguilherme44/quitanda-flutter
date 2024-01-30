@@ -11,22 +11,23 @@ class LogoutButton extends StatelessWidget {
     final controller = context.watch<SignController>();
 
     return ListTile(
-      title: Row(
-        children: [
-          Icon(
-            Icons.logout,
-            color: CustomColors.customSecondaryColor,
-          ),
-          const SizedBox(width: 7),
-          Text(
-            'Sair',
-            style: TextStyle(
-                color: CustomColors.customSwatchColor,
-                fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-      onTap: () => controller.onLogoutMobile(),
-    );
+        title: Row(
+          children: [
+            Icon(
+              Icons.logout,
+              color: CustomColors.customSecondaryColor,
+            ),
+            const SizedBox(width: 7),
+            Text(
+              'Sair',
+              style: TextStyle(
+                  color: CustomColors.customSwatchColor,
+                  fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        onTap: () {
+          controller.onLogoutMobile();
+        });
   }
 }

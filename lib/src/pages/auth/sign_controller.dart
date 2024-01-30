@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 enum AuthState { idle, success, error, loading, isLogged, isLogout }
@@ -37,9 +38,9 @@ class SignController extends ChangeNotifier {
 
       await getUserCredentials();
       state = AuthState.isLogged;
-      notifyListeners();
     } catch (e) {
       state = AuthState.error;
+    } finally {
       notifyListeners();
     }
   }
@@ -48,9 +49,6 @@ class SignController extends ChangeNotifier {
     if (auth0Mobile == null) {
       await initializeAuth0Mobile();
     }
-
-    state = AuthState.loading;
-    notifyListeners();
 
     final isLogged = kIsWeb
         ? await auth0Web?.hasValidCredentials()
@@ -63,7 +61,7 @@ class SignController extends ChangeNotifier {
 
       notifyListeners();
     } else {
-      state = AuthState.error;
+      state = AuthState.isLogout;
       notifyListeners();
     }
   }
@@ -85,17 +83,11 @@ class SignController extends ChangeNotifier {
       await initializeAuth0Mobile();
     }
 
-    state = AuthState.loading;
-    notifyListeners();
+    await auth0Mobile!.webAuthentication(scheme: 'greengrocer').logout();
 
-    try {
-      await auth0Mobile!.webAuthentication(scheme: 'greengrocer').logout();
-      state = AuthState.isLogout;
-      notifyListeners();
-    } catch (e) {
-      state = AuthState.error;
-      notifyListeners();
-    }
+    state = AuthState.isLogout;
+
+    notifyListeners();
   }
 
   Future<void> onLoginWeb() async {

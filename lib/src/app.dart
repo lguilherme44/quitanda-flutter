@@ -7,7 +7,7 @@ import 'package:goya/src/controllers/product_controller.dart';
 import 'package:goya/src/pages/auth/sign_controller.dart';
 import 'package:goya/src/pages/auth/sign_in_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:goya/src/pages/home/home_tab.dart';
+import 'package:goya/src/pages/layout/base_screen.dart';
 import 'package:provider/provider.dart';
 
 class AppWidget extends StatelessWidget {
@@ -26,12 +26,15 @@ class AppWidget extends StatelessWidget {
         title: 'Empório Goya',
         debugShowCheckedModeBanner: false,
         builder: FToastBuilder(),
-        // darkTheme: ThemeData.dark(),
-        // themeMode: ThemeMode.light,
-        home: const SignInScreen(),
-        routes: {
-          '/callback': (context) => const HomeTab(),
-        },
+        home: Consumer<SignController>(builder: (context, signController, _) {
+          signController.isLogged();
+
+          if (signController.state == AuthState.isLogout) {
+            return const SignInScreen();
+          } else {
+            return const BaseScreen();
+          }
+        }),
         theme: ThemeData(
           textTheme: GoogleFonts.robotoTextTheme(),
           textSelectionTheme: const TextSelectionThemeData(
